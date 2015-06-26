@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
-
+﻿
 namespace Berp
 {
     public abstract class DerivedRule : Rule
     {
-        private readonly string name;
+        private string name;
         public RuleElement[] RuleElements { get; protected set; }
 
         protected DerivedRule(string name, params RuleElement[] ruleElements)

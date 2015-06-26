@@ -1,3 +1,6 @@
+This is the Vala port of Berp
+Ported by Chris Daley <chebizarro@gmail.com> 2015
+
 Berp
 ====
 

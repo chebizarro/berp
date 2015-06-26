@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using RazorEngine;
-using Encoding = System.Text.Encoding;
-
+﻿
 namespace Berp
 {
     class Generator
