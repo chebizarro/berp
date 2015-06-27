@@ -1,4 +1,4 @@
-﻿
+
 namespace Berp
 {
     class Generator

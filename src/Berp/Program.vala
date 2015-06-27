@@ -1,4 +1,4 @@
-﻿namespace Berp
+namespace Berp
 {
 	public class Options : GLib.Object {
 

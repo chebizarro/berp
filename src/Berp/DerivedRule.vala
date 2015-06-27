@@ -1,4 +1,4 @@
-﻿
+
 namespace Berp
 {
     public abstract class DerivedRule : Rule
@@ -6,7 +6,7 @@ namespace Berp
         private string name;
         public RuleElement[] RuleElements { get; protected set; }
 
-        protected DerivedRule(string name, params RuleElement[] ruleElements)
+        protected DerivedRule(string name, RuleElement[] ruleElements)
         {
             this.name = name;
             this.RuleElements = ruleElements;

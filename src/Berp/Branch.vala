@@ -1,4 +1,4 @@
-﻿
+
 namespace Berp
 {
     class Branch
@@ -18,7 +18,7 @@ namespace Berp
                 return obj.TokenType.GetHashCode();
             }
         }
-        public static readonly IEqualityComparer<Branch> ProductionComparer = new BranchProductionComparer();
+        public static IEqualityComparer<Branch> ProductionComparer = new BranchProductionComparer();
 
 
         public TokenType TokenType { get; private set; }

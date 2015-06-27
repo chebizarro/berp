@@ -1,4 +1,4 @@
-﻿
+
 namespace Berp
 {
     public class LookAheadHint

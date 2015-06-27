@@ -4,7 +4,8 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_FILES([Makefile
-		src/Makefile])
+		src/Makefile
+		src/Berp/Makefile])
 
 LT_INIT
 AC_PROG_CC
