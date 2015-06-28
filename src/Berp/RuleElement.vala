@@ -64,10 +64,10 @@ namespace Berp
 
             if (embedNonProductionRules && resolvedRule != null && resolvedRule.TempRule)
             {
-                if ((multilicator == Multilicator.One && resolvedRule is SequenceRule && ((SequenceRule)resolvedRule).RuleElements.Length == 1) || resolvedRule is AlternateRule)
-                    return string.Format("{0}{1}", resolvedRule.GetRuleDescription(true), postFix);
+                if ((multilicator == Multilicator.One && resolvedRule is SequenceRule && ((SequenceRule)resolvedRule).RuleElements.length () == 1) || resolvedRule is AlternateRule)
+                    return "%s%s".printf(resolvedRule.GetRuleDescription(true), postFix);
 
-                return string.Format("({0}){1}", resolvedRule.GetRuleDescription(true), postFix);
+                return "(%s)%s".printf(resolvedRule.GetRuleDescription(true), postFix);
             }
 
             return ruleName + postFix;

@@ -1,10 +1,11 @@
+using Gee;
 
 namespace Berp.BerpGrammar
 {
 	
-	public struct KeyValuePair<TKey, TValue> {
-		private TKey Key { get; private set;}
-		private TValue @Value { get; set;}
+	public struct KeyValuePair<K,V> {
+		private K Key { get; private set;}
+		private V @Value { get; set;}
 	}
 
 	
@@ -13,11 +14,12 @@ namespace Berp.BerpGrammar
         public class AstNode
         {
             public RuleType Node { get; set; }
-            public List<KeyValuePair<RuleType, List<Object>>> SubNodes { get; set; }
+            public ArrayList<KeyValuePair<RuleType, ArrayList<Object>>> SubNodes { get; set; }
 
+			
             public Gee.Iterable<Object> GetSubNodesOf(RuleType ruleType)
             {
-                return SubNodes.Where(sn => sn.Key == ruleType).SelectMany(sn => sn.Value);
+                return SubNodes.foreach((sn) => {sn.Key == ruleType;}).SelectMany(sn => sn.Value);
             }
 
             public Gee.Iterable<Object> GetAllSubNodes()
@@ -25,25 +27,27 @@ namespace Berp.BerpGrammar
                 return SubNodes.SelectMany(sn => sn.Value);
             }
 
+			
             public void AddSubNode(RuleType nodeName, Object subNode)
             {
-                if (SubNodes.Count > 0)
-                {
-                    var lastSubNode = SubNodes.LastOrDefault();
+                if (SubNodes.size > 0) {
+					
+                    var lastSubNode = SubNodes.get(SubNodes.size - 1);
+					
                     if (lastSubNode.Key == nodeName)
                     {
-                        lastSubNode.Value.Add(subNode);
+                        lastSubNode.Value = subNode;
                         return;
                     }
                 }
-				List<Object> subNodes = new List<Object> ();
-				subNodes.append (subNode);
-                SubNodes.append (KeyValuePair<RuleType, List<Object>> (nodeName, subNodes));
+				ArrayList<Object> subNodes = new ArrayList<Object> ();
+				subNodes.add (subNode);
+                SubNodes.add (KeyValuePair<RuleType, List<Object>> (nodeName, subNodes));
             }
 
             public AstNode()
             {
-                SubNodes = new List<KeyValuePair<RuleType, List<Object>>>();
+                SubNodes = new ArrayList<KeyValuePair<RuleType, ArrayList<Object>>>();
             }
 
             public override string ToString()
@@ -56,13 +60,13 @@ namespace Berp.BerpGrammar
 
         private DomBuilder domBuilder = new DomBuilder();
         private Gee.LinkedList<AstNode> stack = new Gee.LinkedList<AstNode>();
-        public AstNode CurrentNode { get { return stack.Peek(); } }
+        public AstNode CurrentNode { get { return stack.peek(); } }
 
         public AstBuilder()
         {
 			AstNode node = new AstNode ();
 			node.Node = RuleType.None;
-            stack.Push(node);
+            stack.push(node);
         }
 
         public void Build(Token token)
@@ -75,7 +79,7 @@ namespace Berp.BerpGrammar
         }
 
         public void StartRule(RuleType node) {
-			stack.Push(new AstNode ().Node = node);
+			stack.push(new AstNode ().Node = node);
         }
 
         public void EndRule(RuleType node)
@@ -85,7 +89,7 @@ namespace Berp.BerpGrammar
 
         public void Pop()
         {
-            var astNode = stack.Pop();
+            var astNode = stack.pop();
             var subNode = domBuilder.BuildFromNode(astNode);
             CurrentNode.AddSubNode(astNode.Node, subNode);
         }

@@ -42,8 +42,8 @@ namespace Berp
             if (caller.Rule is TokenRule)
             {
                 ruleCanFinish = false;
-                productions.Add(new ProductionRule(ProductionRuleType.Process, caller.Rule));
-                result.Add(CreateBranch(caller, productions, lookAhead));
+                productions.append(new ProductionRule(ProductionRuleType.Process, caller.Rule));
+                result.append(CreateBranch(caller, productions, lookAhead));
                 return result;
             }
 

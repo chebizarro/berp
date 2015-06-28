@@ -1002,8 +1002,8 @@ namespace Berp.BerpGrammar {
             const string stateComment = "State: 19 - Grammar:1>RuleDefinition:4>RuleDefinitionElement:0>RuleDefinitionElement_Core:0>__alt0:0>AlternateElement:0>#LParen:0";
             token.Detach();
             var expectedTokens = new string[] {"#Rule", "#Token"};
-            var error = token.IsEOF ? (ParserException)new UnexpectedEOFException(token, expectedTokens, stateComment) 
-                : new UnexpectedTokenException(token, expectedTokens, stateComment);
+            var error = token.IsEOF ? (ParserException)new ParserException.UnexpectedEOFException(token, expectedTokens, stateComment) 
+                : new ParserException.UnexpectedTokenException(token, expectedTokens, stateComment);
             if (StopAtFirstError)
                 throw error;
             
@@ -1030,8 +1030,8 @@ namespace Berp.BerpGrammar {
             const string stateComment = "State: 20 - Grammar:1>RuleDefinition:4>RuleDefinitionElement:0>RuleDefinitionElement_Core:0>__alt0:0>AlternateElement:1>AlternateElementBody:0>AlternateElementItem:0>__alt3:0>#Rule:0";
             token.Detach();
             var expectedTokens = new string[] {"#AlternateOp", "#RParen"};
-            var error = token.IsEOF ? (ParserException)new UnexpectedEOFException(token, expectedTokens, stateComment) 
-                : new UnexpectedTokenException(token, expectedTokens, stateComment);
+            var error = token.IsEOF ? (ParserException)new ParserException.UnexpectedEOFException(token, expectedTokens, stateComment) 
+                : new ParserException.UnexpectedTokenException(token, expectedTokens, stateComment);
             if (StopAtFirstError)
                 throw error;
             

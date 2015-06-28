@@ -1,10 +1,11 @@
+using Gee;
 
 namespace Berp
 {
-    public class RuleSet : List<Rule>
+    public class RuleSet : Gee.ArrayList<Rule>
     {
         private HashTable<string, Object> settings;
-        private List<LookAheadHint> lookAheadHints = new List<LookAheadHint>();
+        private Gee.ArrayList<LookAheadHint> lookAheadHints = new Gee.ArrayList<LookAheadHint>();
         private TokenType[] ignoredTokens = new TokenType[0];
 
         public TokenType[] IgnoredTokens
@@ -47,17 +48,17 @@ namespace Berp
 
         public RuleSet(Type tokenType)
         {
-            append(new TokenRule(TokenType.EOF));
+            add(new TokenRule(TokenType.EOF));
             foreach (var fieldInfo in tokenType.GetFields(BindingFlags.Static | BindingFlags.Public))
             {
-                append(new TokenRule((TokenType)fieldInfo.GetValue(null)));
+                add(new TokenRule((TokenType)fieldInfo.GetValue(null)));
             }
-            append(new TokenRule(TokenType.Other));
+            add(new TokenRule(TokenType.Other));
         }
 
-        public RuleSet.WithSettings(HashTable<string, Object> settings)
+        public RuleSet.WithSettings(HashMap<string, Object> settings)
         {
-            this.settings = settings ?? new HashTable<string, Object>();
+            this.settings = settings ?? new HashMap<string, Object>();
 
             AddTokens();
             AddIgnoredContent();
@@ -71,12 +72,12 @@ namespace Berp
 
         private void AddTokens()
         {
-            append(new TokenRule(TokenType.EOF));
+            add(new TokenRule(TokenType.EOF));
             foreach (var token in GetSetting("Tokens", new Object[0]))
             {
-                append(new TokenRule(new TokenType(token.ToString().Substring(1))));
+                add(new TokenRule(new TokenType(token.ToString().Substring(1))));
             }
-            append(new TokenRule(TokenType.Other));
+            add(new TokenRule(TokenType.Other));
         }
 
 
@@ -99,8 +100,8 @@ namespace Berp
 
         private void ResolveWithLookAhead(LookAheadHint lookAheadHint)
         {
-            lookAheadHint.Id = lookAheadHints.Count;
-            lookAheadHints.append(lookAheadHint);
+            lookAheadHint.Id = lookAheadHints.length();
+            lookAheadHints.add(lookAheadHint);
         }
 
         public void Resolve()

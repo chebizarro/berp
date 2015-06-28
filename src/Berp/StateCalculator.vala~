@@ -42,8 +42,8 @@ namespace Berp
             if (caller.Rule is TokenRule)
             {
                 ruleCanFinish = false;
-                productions.Add(new ProductionRule(ProductionRuleType.Process, caller.Rule));
-                result.Add(CreateBranch(caller, productions, lookAhead));
+                productions.append(new ProductionRule(ProductionRuleType.Process, caller.Rule));
+                result.apend(CreateBranch(caller, productions, lookAhead));
                 return result;
             }
 
@@ -129,7 +129,7 @@ namespace Berp
             return branch;
         }
 
-        public static Dictionary<int, State> CalculateStates(RuleSet ruleSet)
+        public static HashTable<int, State> CalculateStates(RuleSet ruleSet)
         {
             var startCallStackItem = new CallStackItem(null, ruleSet.StartRule);
             var branches = GetBranches(startCallStackItem);
@@ -159,7 +159,7 @@ namespace Berp
             return states;
         }
 
-        private static void GetNextStates(Dictionary<int, State> states, State state, ref int stateCount)
+        private static void GetNextStates(HashTable<int, State> states, State state, ref int stateCount)
         {
             var branchGroups = state.Branches.GroupBy(b => b.TokenType);
             foreach (var branchGroup in branchGroups)

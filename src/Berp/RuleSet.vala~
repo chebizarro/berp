@@ -1,10 +1,11 @@
+using Gee;
 
 namespace Berp
 {
-    public class RuleSet : List<Rule>
+    public class RuleSet : Gee.ArrayList<Rule>
     {
         private HashTable<string, Object> settings;
-        private List<LookAheadHint> lookAheadHints = new List<LookAheadHint>();
+        private Gee.ArrayList<LookAheadHint> lookAheadHints = new Gee.ArrayList<LookAheadHint>();
         private TokenType[] ignoredTokens = new TokenType[0];
 
         public TokenType[] IgnoredTokens
@@ -55,9 +56,9 @@ namespace Berp
             append(new TokenRule(TokenType.Other));
         }
 
-        public RuleSet.WithSettings(HashTable<string, Object> settings)
+        public RuleSet.WithSettings(HashMap<string, Object> settings)
         {
-            this.settings = settings ?? new HashTable<string, Object>();
+            this.settings = settings ?? new HashMap<string, Object>();
 
             AddTokens();
             AddIgnoredContent();
@@ -86,7 +87,7 @@ namespace Berp
 
             foreach (var rule in this.Where(r => !r.TempRule || !embedNonProductionRules).Where(r => !(r is TokenRule) || !embedNonProductionRules))
             {
-                ruleSetBuilder.AppendLine(rule.ToString(embedNonProductionRules));
+                ruleSetBuilder.append(rule.ToString(embedNonProductionRules) + "\n");
             }
 
             return ruleSetBuilder.str;
@@ -99,7 +100,7 @@ namespace Berp
 
         private void ResolveWithLookAhead(LookAheadHint lookAheadHint)
         {
-            lookAheadHint.Id = lookAheadHints.Count;
+            lookAheadHint.Id = lookAheadHints.length();
             lookAheadHints.append(lookAheadHint);
         }
 

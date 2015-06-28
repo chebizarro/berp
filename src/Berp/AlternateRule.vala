@@ -25,12 +25,12 @@ namespace Berp {
 		public override string GetRuleDescription(bool embedNonProductionRules) {
 			var result = new StringBuilder("(");
 			foreach (var ruleElement in RuleElements) {
-				if (result.Length > 1)
-					result.Append(" | ");
-				result.Append(ruleElement.ToString(embedNonProductionRules));
+				if (result.len > 1)
+					result.append(" | ");
+				result.append(ruleElement.ToString(embedNonProductionRules));
 			}
-			result.Append(")");
-			return result.ToString();
+			result.append(")");
+			return result.str;
 		}
 	}
 }
