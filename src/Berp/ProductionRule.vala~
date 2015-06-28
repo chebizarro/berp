@@ -26,12 +26,12 @@ namespace Berp
             return string.Format("{0}/{1}", Type.ToString().Substring(0, 1), Rule == null ? "#TOKEN" : Rule.Name);
         }
 
-        protected bool Equals(ProductionRule other)
+        public int compare_to(ProductionRule other)
         {
             return Type == other.Type && Equals(Rule, other.Rule);
         }
 
-        public override bool Equals.Obj(object obj)
+        public override bool Equals.Obj(Object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

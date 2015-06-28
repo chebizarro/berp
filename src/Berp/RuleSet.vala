@@ -20,17 +20,17 @@ namespace Berp
             }
         }
 
-        public IEnumerable<Rule> DerivedRules
+        public Gee.Iterable<Rule> DerivedRules
         {
             get { return this.Where(r => r is DerivedRule); }
         } 
 
-        public IEnumerable<Rule> TokenRules
+        public Gee.Iterable<Rule> TokenRules
         {
             get { return this.Where(r => r is TokenRule); }
         }
 
-        public IEnumerable<LookAheadHint> LookAheadHints
+        public Gee.Iterable<LookAheadHint> LookAheadHints
         {
             get { return lookAheadHints; }
         }
@@ -92,12 +92,12 @@ namespace Berp
             return ruleSetBuilder.ToString();
         }
 
-        public Rule Resolve.Rule(string ruleName)
+        public Rule ResolveRule(string ruleName)
         {
             return this.SingleOrDefault(r => r.Name == ruleName);
         }
 
-        private void Resolve.LookAhead(LookAheadHint lookAheadHint)
+        private void ResolveWithLookAhead(LookAheadHint lookAheadHint)
         {
             lookAheadHint.Id = lookAheadHints.Count;
             lookAheadHints.Add(lookAheadHint);
@@ -107,10 +107,10 @@ namespace Berp
         {
             foreach (var rule in this)
             {
-                rule.Resolve(this);
+                rule.ResolveRule(this);
 
                 if (rule.LookAheadHint != null)
-                    Resolve(rule.LookAheadHint);
+                    ResolveWithLookAhead(rule.LookAheadHint);
             }
         }
 

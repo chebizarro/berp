@@ -31,7 +31,7 @@ namespace Berp
 
         public string Comment { get; set; }
 
-        public IEnumerable<StateTransition> Transitions
+        public Gee.Iterable<StateTransition> Transitions
         {
             get { return
                 transitions.Where(s => s.TokenType.Equals(TokenType.EOF))

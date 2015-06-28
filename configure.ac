@@ -12,7 +12,9 @@ AC_PROG_CC
 AM_PROG_VALAC
 
 pkg_modules="glib-2.0 >= 2.24.1
-             gobject-2.0 >= 2.24.1"
+             gobject-2.0 >= 2.24.1
+             gio-2.0
+             gee-0.8"
 
 PKG_CHECK_MODULES(BERP, [$pkg_modules])
 AC_SUBST(BERP_CFLAGS)

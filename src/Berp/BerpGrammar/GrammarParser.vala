@@ -90,7 +90,7 @@ namespace Berp.BerpGrammar {
 				tokenMatcher = new TokenMatcher();
 			}
 			if (astBuilder == null) {
-				astBuilder = new AstBuilder());
+				astBuilder = new AstBuilder();
 			}
 
             var context = new ParserContext ();

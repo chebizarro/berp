@@ -18,9 +18,9 @@ namespace Berp
     }
     public class State
     {
-        private readonly int id;
-        private readonly List<Branch> branches;
-        private readonly List<StateTransition> transitions = new List<StateTransition>();
+		private int id;
+		private List<Branch> branches;
+		private List<StateTransition> transitions = new List<StateTransition>();
 
         public int Id
         {

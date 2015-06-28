@@ -32,7 +32,7 @@ berp_SOURCES = 	AlternateRule.vala \
 	BerpGrammar/TokenScanner.vala
 
 berp_LDADD = 
-berp_VALAFLAGS = 
+berp_VALAFLAGS = --pkg gio-2.0 --pkg glib-2.0 --pkg gee-0.8
 
 CLEANFILES = *.h *.c *.vapi *.stamp
 

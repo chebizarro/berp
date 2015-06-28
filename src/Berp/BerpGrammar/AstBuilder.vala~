@@ -1,24 +1,31 @@
 
 namespace Berp.BerpGrammar
 {
+	
+	public struct KeyValuePair<TKey, TValue> {
+		private TKey Key { get; private set;}
+		private TValue @Value { get; set;}
+	}
+
+	
     public class AstBuilder : IAstBuilder
     {
         public class AstNode
         {
             public RuleType Node { get; set; }
-            public List<KeyValuePair<RuleType, List<object>>> SubNodes { get; set; }
+            public List<KeyValuePair<RuleType, List<Object>>> SubNodes { get; set; }
 
-            public IEnumerable<object> GetSubNodesOf(RuleType ruleType)
+            public IEnumerable<Object> GetSubNodesOf(RuleType ruleType)
             {
                 return SubNodes.Where(sn => sn.Key == ruleType).SelectMany(sn => sn.Value);
             }
 
-            public IEnumerable<object> GetAllSubNodes()
+            public IEnumerable<Object> GetAllSubNodes()
             {
                 return SubNodes.SelectMany(sn => sn.Value);
             }
 
-            public void AddSubNode(RuleType nodeName, object subNode)
+            public void AddSubNode(RuleType nodeName, Object subNode)
             {
                 if (SubNodes.Count > 0)
                 {
@@ -29,12 +36,14 @@ namespace Berp.BerpGrammar
                         return;
                     }
                 }
-                SubNodes.Add(new KeyValuePair<RuleType, List<object>>(nodeName, new List<object> { subNode }));
+				List<Object> subNodes = new List<Object> ();
+				subNodes.append (subNode);
+                SubNodes.append (KeyValuePair<RuleType, List<Object>> (nodeName, subNodes));
             }
 
             public AstNode()
             {
-                SubNodes = new List<KeyValuePair<RuleType, List<object>>>();
+                SubNodes = new List<KeyValuePair<RuleType, List<Object>>>();
             }
 
             public override string ToString()
@@ -46,12 +55,14 @@ namespace Berp.BerpGrammar
 
 
         private DomBuilder domBuilder = new DomBuilder();
-        private Stack<AstNode> stack = new Stack<AstNode>();
+        private Gee.LinkedList<AstNode> stack = new Gee.LinkedList<AstNode>();
         public AstNode CurrentNode { get { return stack.Peek(); } }
 
         public AstBuilder()
         {
-            stack.Push(new AstNode { Node = RuleType.None });
+			AstNode node = new AstNode ();
+			node.Node = RuleType.None;
+            stack.Push(node);
         }
 
         public void Build(Token token)
@@ -63,9 +74,8 @@ namespace Berp.BerpGrammar
             }
         }
 
-        public void StartRule(RuleType node)
-        {
-            stack.Push(new AstNode { Node = node });
+        public void StartRule(RuleType node) {
+			stack.Push(new AstNode ().Node = node);
         }
 
         public void EndRule(RuleType node)

@@ -1,7 +1,7 @@
 
 namespace Berp
 {
-    public class TokenType : IComparable<TokenType>
+    public class TokenType : Gee.Comparable<TokenType>
     {
         public static TokenType EOF = new TokenType("EOF");
         public static TokenType Other = new TokenType("Other");
@@ -23,12 +23,12 @@ namespace Berp
             return Name;
         }
 
-        protected bool Equals(TokenType other)
+        public int compare_to(TokenType other)
         {
             return string.Equals(Name, other.Name);
         }
 
-        public override bool Equals.Obj(object obj)
+        public override bool Equals.Obj(Object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

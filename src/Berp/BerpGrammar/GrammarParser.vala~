@@ -6,12 +6,10 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
-#region Designer generated code
-#pragma warning disable
-using System;
-using System.Collections.Generic;
-namespace Berp.BerpGrammar
-{
+//#region Designer generated code
+//#pragma warning disable
+
+namespace Berp.BerpGrammar {
     public enum TokenType
     {
         None,
@@ -32,7 +30,7 @@ namespace Berp.BerpGrammar
         OneOrZeroMultiplier,
         Comma,
         Number,
-        Other,
+        Other
     }
 
     public enum RuleType
@@ -74,12 +72,10 @@ namespace Berp.BerpGrammar
         ParameterValue, // ParameterValue := (#Rule | #Token)
     }
 
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Parser
     {
         public bool StopAtFirstError { get; set;}
 
-        [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         protected class ParserContext
         {
             public ITokenScanner TokenScanner { get; set; }
@@ -89,21 +85,20 @@ namespace Berp.BerpGrammar
             public List<ParserException> Errors { get; set; }
         }
 
-        public Berp.RuleSet Parse(ITokenScanner tokenScanner)
-        {
-            return Parse(tokenScanner, new TokenMatcher(), new AstBuilder());
-        }
+        public Berp.RuleSet Parse(ITokenScanner tokenScanner, ITokenMatcher? tokenMatcher = null, IAstBuilder? astBuilder = null) {
+            if (tokenMatcher == null) {
+				tokenMatcher = new TokenMatcher();
+			}
+			if (astBuilder == null) {
+				astBuilder = new AstBuilder());
+			}
 
-        public Berp.RuleSet Parse(ITokenScanner tokenScanner, ITokenMatcher tokenMatcher, IAstBuilder astBuilder)
-        {
-            var context = new ParserContext
-            {
-                TokenScanner = tokenScanner,
-                TokenMatcher = tokenMatcher,
-                Builder = astBuilder,
-                TokenQueue = new Queue<Token>(),
-                Errors = new List<ParserException>()
-            };
+            var context = new ParserContext ();
+			context.TokenScanner = tokenScanner;
+            context.TokenMatcher = tokenMatcher;
+            context.Builder = astBuilder;
+            context.TokenQueue = new Queue<Token>();
+            context.Errors = new List<ParserException>();
 
             StartRule(context, RuleType.Grammar);
             int state = 0;
@@ -2640,5 +2635,5 @@ namespace Berp.BerpGrammar
         bool Match_Other(Token token);
     }
 }
-#pragma warning restore
-#endregion
+//#pragma warning restore
+//#endregion

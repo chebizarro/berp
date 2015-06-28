@@ -1,18 +1,16 @@
 
 namespace Berp.BerpGrammar
 {
+
+	errordomain ParserException
+	
     public abstract class ParserException : Exception
     {
         public Location Location { get; private set; }
 
-        protected ParserException(string message)
-            : base(message)
-        {
-        }
-
-        protected ParserException(string message, Location location)
-            : base(GetMessage(message, location))
-        {
+        protected ParserException(string message, Location? location = null) {
+			base(GetMessage(message, location));
+			
             if (location == null) throw new ArgumentNullException("location");
 
             Location = location;
@@ -28,25 +26,17 @@ namespace Berp.BerpGrammar
 
     public class AstBuilderException : ParserException
     {
-        public AstBuilderException(string message)
-            : base(message)
-        {
-            if (message == null) throw new ArgumentNullException("message");
-        }
-
-        public AstBuilderException(string message, Location location)
-            : base(message, location)
-        {
-            if (message == null) throw new ArgumentNullException("message");
+        public AstBuilderException(string message, Location? location = null) {
+			base(message, location);
+			if (message == null) throw new ArgumentNullException("message");
             if (location == null) throw new ArgumentNullException("location");
         }
     }
 
     public class NoSuchLanguageException : ParserException
     {
-        public NoSuchLanguageException(string language, Location location) :
-            base("Language not supported: " + language, location)
-        {
+        public NoSuchLanguageException(string language, Location location) {
+			base("Language not supported: " + language, location);
         }
     }
 
@@ -57,9 +47,9 @@ namespace Berp.BerpGrammar
         public Token ReceivedToken { get; private set; }
         public string[] ExpectedTokenTypes { get; private set; }
 
-        public UnexpectedTokenException(Token receivedToken, string[] expectedTokenTypes, string stateComment)
-            : base(GetMessage(receivedToken, expectedTokenTypes), receivedToken.Location)
-        {
+        public UnexpectedTokenException(Token receivedToken, string[] expectedTokenTypes, string stateComment) {
+			base(GetMessage(receivedToken, expectedTokenTypes), receivedToken.Location);
+
             if (receivedToken == null) throw new ArgumentNullException("receivedToken");
             if (expectedTokenTypes == null) throw new ArgumentNullException("expectedTokenTypes");
 
@@ -83,10 +73,9 @@ namespace Berp.BerpGrammar
     {
         public string StateComment { get; private set; }
         public string[] ExpectedTokenTypes { get; private set; }
-        public UnexpectedEOFException(Token receivedToken, string[] expectedTokenTypes, string stateComment)
-            : base(GetMessage(expectedTokenTypes), receivedToken.Location)
-        {
-            if (expectedTokenTypes == null) throw new ArgumentNullException("expectedTokenTypes");
+        public UnexpectedEOFException(Token receivedToken, string[] expectedTokenTypes, string stateComment) {
+			base(GetMessage(expectedTokenTypes), receivedToken.Location);
+    		if (expectedTokenTypes == null) throw new ArgumentNullException("expectedTokenTypes");
 
             ExpectedTokenTypes = expectedTokenTypes;
             StateComment = stateComment;
@@ -103,11 +92,10 @@ namespace Berp.BerpGrammar
 
     public class CompositeParserException : ParserException
     {
-        public IEnumerable<ParserException> Errors { get; private set; }
+        public Gee.Iterable<ParserException> Errors { get; private set; }
 
-        public CompositeParserException(ParserException[] errors)
-            : base(GetMessage(errors))
-        {
+        public CompositeParserException(ParserException[] errors) {
+			base(GetMessage(errors));
             if (errors == null) throw new ArgumentNullException("errors");
 
             Errors = errors;

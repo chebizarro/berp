@@ -103,7 +103,7 @@ namespace Berp.BerpGrammar
             return rule;
         }
 
-        public Gee.Iterable<Object> BuildFromToken(Token token)
+        public IEnumerable<Object> BuildFromToken(Token token)
         {
             switch (token.TokenType)
             {

@@ -178,15 +178,15 @@ AUTOCONF = ${SHELL} /home/developer/berp/missing autoconf
 AUTOHEADER = ${SHELL} /home/developer/berp/missing autoheader
 AUTOMAKE = ${SHELL} /home/developer/berp/missing automake-1.14
 AWK = mawk
-BERP_CFLAGS = -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include 
-BERP_LIBS = -lgobject-2.0 -lglib-2.0 
+BERP_CFLAGS = -pthread -I/usr/local/include/gee-0.8 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include 
+BERP_LIBS = -L/usr/local/lib -lgio-2.0 -lgee-0.8 -lgobject-2.0 -lglib-2.0 
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
-DEFS = -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\"
+DEFS = -DPACKAGE_NAME=\"berp\" -DPACKAGE_TARNAME=\"berp\" -DPACKAGE_VERSION=\"1.0\" -DPACKAGE_STRING=\"berp\ 1.0\" -DPACKAGE_BUGREPORT=\"chebizarro@gmail.com\" -DPACKAGE_URL=\"\" -DPACKAGE=\"berp\" -DVERSION=\"1.0\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\"
 DEPDIR = .deps
 DLLTOOL = false
 DSYMUTIL = 

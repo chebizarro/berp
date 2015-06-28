@@ -5,7 +5,7 @@ namespace Berp.BerpGrammar
     public class TokenScanner : ITokenScanner
     {
         private FileInputStream textReader;
-        private Gee.Iterable<Token> tokenEnumerator;
+        private IEnumerator<Token> tokenEnumerator;
 
         public TokenScanner(GLib.FileInputStream textReader)
         {
@@ -13,7 +13,7 @@ namespace Berp.BerpGrammar
             tokenEnumerator = GetTokenEnumerator();
         }
 
-        private Gee.Iterable<Token> GetTokenEnumerator()
+        private IEnumerator<Token> GetTokenEnumerator()
         {
             var tokenRe = new Regex("""^(?<token>\:=|\-\>|\,|\[|\]|\(|\)|\*|\+|\?|\!|#\w+|\w[\w\.]*|\d+|\s|.)*$""");
             string line;

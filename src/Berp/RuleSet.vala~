@@ -20,24 +20,24 @@ namespace Berp
             }
         }
 
-        public IEnumerable<Rule> DerivedRules
+        public Gee.Iterable<Rule> DerivedRules
         {
             get { return this.Where(r => r is DerivedRule); }
         } 
 
-        public IEnumerable<Rule> TokenRules
+        public Gee.Iterable<Rule> TokenRules
         {
             get { return this.Where(r => r is TokenRule); }
         }
 
-        public IEnumerable<LookAheadHint> LookAheadHints
+        public Gee.Iterable<LookAheadHint> LookAheadHints
         {
             get { return lookAheadHints; }
         }
 
         public T GetSetting<T>(string name, T defaultValue = default(T))
         {
-            object paramValue;
+            Object paramValue;
             if (settings.TryGetValue(name, out paramValue))
             {
                 return (T)paramValue;
@@ -55,9 +55,9 @@ namespace Berp
             Add(new TokenRule(TokenType.Other));
         }
 
-        public RuleSet.WithSettings(Dictionary<string, object> settings)
+        public RuleSet.WithSettings(HashTable<string, Object> settings)
         {
-            this.settings = settings ?? new Dictionary<string, object>();
+            this.settings = settings ?? new HashTable<string, Object>();
 
             AddTokens();
             AddIgnoredContent();
@@ -65,14 +65,14 @@ namespace Berp
 
         private void AddIgnoredContent()
         {
-            SetIgnoredContent(GetSetting("IgnoredTokens", new object[0])
+            SetIgnoredContent(GetSetting("IgnoredTokens", new Object[0])
                 .Select(token => new TokenType(token.ToString().Substring(1))).ToArray());
         }
 
         private void AddTokens()
         {
             Add(new TokenRule(TokenType.EOF));
-            foreach (var token in GetSetting("Tokens", new object[0]))
+            foreach (var token in GetSetting("Tokens", new Object[0]))
             {
                 Add(new TokenRule(new TokenType(token.ToString().Substring(1))));
             }
@@ -92,12 +92,12 @@ namespace Berp
             return ruleSetBuilder.ToString();
         }
 
-        public Rule Resolve.Rule(string ruleName)
+        public Rule ResolveRule(string ruleName)
         {
             return this.SingleOrDefault(r => r.Name == ruleName);
         }
 
-        private void Resolve.LookAhead(LookAheadHint lookAheadHint)
+        private void ResolveWithLookAhead(LookAheadHint lookAheadHint)
         {
             lookAheadHint.Id = lookAheadHints.Count;
             lookAheadHints.Add(lookAheadHint);
@@ -107,7 +107,7 @@ namespace Berp
         {
             foreach (var rule in this)
             {
-                rule.Resolve(this);
+                rule.ResolveRule(this);
 
                 if (rule.LookAheadHint != null)
                     Resolve(rule.LookAheadHint);

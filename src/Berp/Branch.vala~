@@ -3,7 +3,7 @@ namespace Berp
 {
     class Branch
     {
-        class BranchProductionComparer : IEqualityComparer<Branch>
+        class BranchProductionComparer : Gee.Comparable<Branch>
         {
             public bool Equals(Branch x, Branch y)
             {
@@ -18,7 +18,7 @@ namespace Berp
                 return obj.TokenType.GetHashCode();
             }
         }
-        public static IEqualityComparer<Branch> ProductionComparer = new BranchProductionComparer();
+        public static Gee.Comparable<Branch> ProductionComparer = new BranchProductionComparer();
 
 
         public TokenType TokenType { get; private set; }
@@ -46,20 +46,21 @@ namespace Berp
             return string.Format("[{0}]", string.Join(",", OptimizedProductions ?? Productions));
         }
 
-        protected bool Equals(Branch other) {
+        protected int compare_to(Branch other) {
             return TokenType.Equals(other.TokenType)
                 && CallStackItem.Equals(other.CallStackItem)
                 && OptimizedProductions.SequenceEqual(other.OptimizedProductions);
         }
 
-        public override bool Equals.Obj(object obj)
+/*
+		public override int compare_to (Object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
             return Equals((Branch) obj);
         }
-
+*/
         public override int GetHashCode() {
 			return (TokenType.GetHashCode()*397);
 		}
