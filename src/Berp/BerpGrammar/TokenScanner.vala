@@ -3,7 +3,7 @@ namespace Berp.BerpGrammar
 {
     public class TokenScanner : ITokenScanner
     {
-        private TextReader textReader;
+        private FileInputStream textReader;
         private IEnumerator<Token> tokenEnumerator;
 
         public TokenScanner(TextReader textReader)

@@ -29,7 +29,7 @@ namespace Berp.BerpGrammar
                         return;
                     }
                 }
-                SubNodes.append (new KeyValuePair<RuleType, List<object>>(nodeName, new List<object> { subNode }));
+                SubNodes.Add(new KeyValuePair<RuleType, List<object>>(nodeName, new List<object> { subNode }));
             }
 
             public AstNode()

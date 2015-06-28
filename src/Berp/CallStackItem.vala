@@ -41,7 +41,7 @@ namespace Berp
 
         protected bool Equals(CallStackItem other)
         {
-            return Equals(parent, other.parent) && Equals(rule, other.rule) && position == other.position;
+            return (parent == other.parent) && (rule == other.rule) && (position == other.position);
         }
 
         public static bool PositionAgnosticEquals(CallStackItem x, CallStackItem y)
@@ -51,6 +51,7 @@ namespace Berp
                     Equals(x.rule, y.rule);
         }
 
+		/*
 		public override bool Equals(Object obj) {
 
 			if (ReferenceEquals(null, obj)) return false;
@@ -58,6 +59,7 @@ namespace Berp
             if (obj.GetType() != GetType()) return false;
             return Equals((CallStackItem) obj);
         }
+	*/
 
         public override int GetHashCode() {
 			var hashCode = (parent != null ? parent.GetHashCode() : 0);

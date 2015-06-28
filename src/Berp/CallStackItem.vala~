@@ -51,9 +51,9 @@ namespace Berp
                     Equals(x.rule, y.rule);
         }
 
-        public override bool Equals.Obj(Object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
+		public override bool Equals(Object obj) {
+
+			if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
             return Equals((CallStackItem) obj);
