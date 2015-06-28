@@ -47,12 +47,12 @@ namespace Berp
 
         public RuleSet(Type tokenType)
         {
-            Add(new TokenRule(TokenType.EOF));
+            append(new TokenRule(TokenType.EOF));
             foreach (var fieldInfo in tokenType.GetFields(BindingFlags.Static | BindingFlags.Public))
             {
-                Add(new TokenRule((TokenType)fieldInfo.GetValue(null)));
+                append(new TokenRule((TokenType)fieldInfo.GetValue(null)));
             }
-            Add(new TokenRule(TokenType.Other));
+            append(new TokenRule(TokenType.Other));
         }
 
         public RuleSet.WithSettings(HashTable<string, Object> settings)
@@ -71,12 +71,12 @@ namespace Berp
 
         private void AddTokens()
         {
-            Add(new TokenRule(TokenType.EOF));
+            append(new TokenRule(TokenType.EOF));
             foreach (var token in GetSetting("Tokens", new Object[0]))
             {
-                Add(new TokenRule(new TokenType(token.ToString().Substring(1))));
+                append(new TokenRule(new TokenType(token.ToString().Substring(1))));
             }
-            Add(new TokenRule(TokenType.Other));
+            append(new TokenRule(TokenType.Other));
         }
 
 
@@ -86,10 +86,10 @@ namespace Berp
 
             foreach (var rule in this.Where(r => !r.TempRule || !embedNonProductionRules).Where(r => !(r is TokenRule) || !embedNonProductionRules))
             {
-                ruleSetBuilder.AppendLine(rule.ToString(embedNonProductionRules));
+                ruleSetBuilder.append(rule.ToString(embedNonProductionRules) + "\n");
             }
 
-            return ruleSetBuilder.ToString();
+            return ruleSetBuilder.str;
         }
 
         public Rule ResolveRule(string ruleName)
@@ -100,7 +100,7 @@ namespace Berp
         private void ResolveWithLookAhead(LookAheadHint lookAheadHint)
         {
             lookAheadHint.Id = lookAheadHints.Count;
-            lookAheadHints.Add(lookAheadHint);
+            lookAheadHints.append(lookAheadHint);
         }
 
         public void Resolve()

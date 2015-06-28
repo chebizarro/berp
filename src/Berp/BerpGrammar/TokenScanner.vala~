@@ -5,7 +5,7 @@ namespace Berp.BerpGrammar
     public class TokenScanner : ITokenScanner
     {
         private FileInputStream textReader;
-        private IEnumerator<Token> tokenEnumerator;
+        private Gee.Iterable<Token> tokenEnumerator;
 
         public TokenScanner(GLib.FileInputStream textReader)
         {
@@ -13,7 +13,7 @@ namespace Berp.BerpGrammar
             tokenEnumerator = GetTokenEnumerator();
         }
 
-        private IEnumerator<Token> GetTokenEnumerator()
+        private Gee.Iterable<Token> GetTokenEnumerator()
         {
             var tokenRe = new Regex("""^(?<token>\:=|\-\>|\,|\[|\]|\(|\)|\*|\+|\?|\!|#\w+|\w[\w\.]*|\d+|\s|.)*$""");
             string line;
@@ -30,7 +30,7 @@ namespace Berp.BerpGrammar
                 if (line.Trim().StartsWith("//"))
                     continue; //TODO: comment
 
-                var parts = tokenRe.Match(line).Groups["token"].Captures.OfType<Capture>();
+                var parts = tokenRe.match(line);//.Groups["token"].Captures.OfType<Capture>();
                 foreach (var part in parts.Where(p => !string.IsNullOrWhiteSpace(p.Value)))
                 {
                     tokenText = part.Value.Trim();
@@ -99,10 +99,10 @@ namespace Berp.BerpGrammar
 
         public Token Read()
         {
-            if (!tokenEnumerator.MoveNext())
+            if (!tokenEnumerator.next())
                 throw new InvalidOperationException("Reader closed");
 
-            return tokenEnumerator.Current;
+            return tokenEnumerator.get ();
         }
     }
 }

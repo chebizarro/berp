@@ -12,7 +12,7 @@ namespace Berp
             get { return parent; }
         }
 
-        public CallStackItem(CallStackItem parent, Rule rule, int position = 0)
+        public CallStackItem(CallStackItem parent, Rule? rule, int position = 0)
         {
             if (rule == null) throw new ArgumentNullException("rule");
             this.parent = parent;
@@ -30,16 +30,16 @@ namespace Berp
             get { return position; }
         }
 
-        public override string ToString()
+        public string ToString()
         {
             var result = new StringBuilder();
             if (parent != null)
-                result.AppendFormat("{0}>", parent);
-            result.AppendFormat("{0}:{1}", rule.Name, position);
-            return result.ToString();
+                result.append_printf("%s>", parent);
+            result.append_printf("%s:%s", rule.Name, position);
+            return result.str;
         }
 
-        protected bool Equals(CallStackItem other)
+        public bool Equals(CallStackItem other)
         {
             return (parent == other.parent) && (rule == other.rule) && (position == other.position);
         }

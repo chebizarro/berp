@@ -3,7 +3,7 @@ namespace Berp
 {
     class Branch
     {
-        class BranchProductionComparer : Gee.Comparable<Branch>
+        class BranchProductionComparer : Gee.Comparable<Branch>, Object
         {
             public bool Equals(Branch x, Branch y)
             {
@@ -13,7 +13,7 @@ namespace Berp
                     ;
             }
 
-            public int GetHashCode(Branch obj)
+            public uint GetHashCode(Branch obj)
             {
                 return obj.TokenType.GetHashCode();
             }
@@ -46,7 +46,7 @@ namespace Berp
             return string.Format("[{0}]", string.Join(",", OptimizedProductions ?? Productions));
         }
 
-        protected int compare_to(Branch other) {
+        public int compare_to(Branch other) {
             return TokenType.Equals(other.TokenType)
                 && CallStackItem.Equals(other.CallStackItem)
                 && OptimizedProductions.SequenceEqual(other.OptimizedProductions);

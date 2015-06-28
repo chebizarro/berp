@@ -2,7 +2,9 @@
 namespace Berp.BerpGrammar
 {
 
-	errordomain ParserException
+	errordomain ParserException {
+
+	}
 	
     public abstract class ParserException : Exception
     {

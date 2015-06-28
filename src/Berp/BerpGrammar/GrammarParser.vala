@@ -123,7 +123,7 @@ namespace Berp.BerpGrammar {
         {
             context.Errors.Add(error);
             if (context.Errors.Count > 10)
-                throw new CompositeParserException(context.Errors.ToArray());
+                throw new ParserException.CompositeParserException(context.Errors.ToArray());
         }
 
         private void HandleAstError(ParserContext context, Action action)
@@ -142,7 +142,7 @@ namespace Berp.BerpGrammar {
             {
                 return action();
             }
-            catch (CompositeParserException compositeParserException)
+            catch (ParserException.CompositeParserException compositeParserException)
             {
                 foreach (var error in compositeParserException.Errors)
                     AddError(context, error);

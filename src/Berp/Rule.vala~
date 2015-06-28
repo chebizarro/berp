@@ -33,22 +33,18 @@ namespace Berp
 
         public abstract string GetRuleDescription(bool embedNonProductionRules);
 
-        public override string ToString()
-        {
-            return ToString(false);
-        }
 
         public virtual string ToString(bool embedNonProductionRules = false)
         {
             var result = new StringBuilder(Name);
             if (AllowProductionRules)
-                result.Append("!");
+                result.append("!");
             if (LookAheadHint != null)
-                result.AppendFormat(" [{0}->{1}]", string.Join("|", LookAheadHint.Skip.Select(t => "#" + t.Name)), string.Join("|", LookAheadHint.ExpectedTokens.Select(t => "#" + t.Name)));
+                result.append_printf(" [%s->%s]", "|" + LookAheadHint.Skip.foreach((t) => {"#" + t.Name;}), "|" + LookAheadHint.ExpectedTokens.Select(t => "#" + t.Name));
 
-            result.Append(" := ");
-            result.Append(GetRuleDescription(embedNonProductionRules));
-            return result.ToString();
+            result.append(" := ");
+            result.append(GetRuleDescription(embedNonProductionRules));
+            return result.str;
         }
 
         public abstract void Resolve(RuleSet ruleSet);

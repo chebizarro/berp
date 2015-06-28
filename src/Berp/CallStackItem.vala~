@@ -12,7 +12,7 @@ namespace Berp
             get { return parent; }
         }
 
-        public CallStackItem(CallStackItem parent, Rule rule, int position = 0)
+        public CallStackItem(CallStackItem parent, Rule? rule, int position = 0)
         {
             if (rule == null) throw new ArgumentNullException("rule");
             this.parent = parent;
@@ -30,18 +30,18 @@ namespace Berp
             get { return position; }
         }
 
-        public override string ToString()
+        public string ToString()
         {
             var result = new StringBuilder();
             if (parent != null)
-                result.AppendFormat("{0}>", parent);
-            result.AppendFormat("{0}:{1}", rule.Name, position);
-            return result.ToString();
+                result.append_printf("%s>", parent);
+            result.append_printf("%s:%s", rule.Name, position);
+            return result.str;
         }
 
         protected bool Equals(CallStackItem other)
         {
-            return Equals(parent, other.parent) && Equals(rule, other.rule) && position == other.position;
+            return (parent == other.parent) && (rule == other.rule) && (position == other.position);
         }
 
         public static bool PositionAgnosticEquals(CallStackItem x, CallStackItem y)
@@ -51,6 +51,7 @@ namespace Berp
                     Equals(x.rule, y.rule);
         }
 
+		/*
 		public override bool Equals(Object obj) {
 
 			if (ReferenceEquals(null, obj)) return false;
@@ -58,6 +59,7 @@ namespace Berp
             if (obj.GetType() != GetType()) return false;
             return Equals((CallStackItem) obj);
         }
+	*/
 
         public override int GetHashCode() {
 			var hashCode = (parent != null ? parent.GetHashCode() : 0);

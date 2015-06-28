@@ -90,7 +90,7 @@ namespace Berp.BerpGrammar {
 				tokenMatcher = new TokenMatcher();
 			}
 			if (astBuilder == null) {
-				astBuilder = new AstBuilder());
+				astBuilder = new AstBuilder();
 			}
 
             var context = new ParserContext ();
@@ -123,7 +123,7 @@ namespace Berp.BerpGrammar {
         {
             context.Errors.Add(error);
             if (context.Errors.Count > 10)
-                throw new CompositeParserException(context.Errors.ToArray());
+                throw new ParserException.CompositeParserException(context.Errors.ToArray());
         }
 
         private void HandleAstError(ParserContext context, Action action)

@@ -30,7 +30,7 @@ namespace Berp.BerpGrammar
                 if (line.Trim().StartsWith("//"))
                     continue; //TODO: comment
 
-                var parts = tokenRe.Match(line).Groups["token"].Captures.OfType<Capture>();
+                var parts = tokenRe.match(line);//.Groups["token"].Captures.OfType<Capture>();
                 foreach (var part in parts.Where(p => !string.IsNullOrWhiteSpace(p.Value)))
                 {
                     tokenText = part.Value.Trim();
@@ -99,10 +99,10 @@ namespace Berp.BerpGrammar
 
         public Token Read()
         {
-            if (!tokenEnumerator.MoveNext())
+            if (!tokenEnumerator.has_next())
                 throw new InvalidOperationException("Reader closed");
 
-            return tokenEnumerator.Current;
+            return tokenEnumerator.get ();
         }
     }
 }

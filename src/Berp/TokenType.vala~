@@ -1,8 +1,7 @@
 
 namespace Berp
 {
-    public class TokenType : Gee.Comparable<TokenType>
-    {
+    public class TokenType : Gee.Comparable<TokenType>, Object {
         public static TokenType EOF = new TokenType("EOF");
         public static TokenType Other = new TokenType("Other");
 
@@ -15,30 +14,31 @@ namespace Berp
 
         public int CompareTo(TokenType other)
         {
-            return String.Compare(Name, other.Name, StringComparison.Ordinal);
+            //return String.Compare(Name, other.Name, StringComparison.Ordinal);
+			return strcmp (Name, other.Name);
         }
 
-        public override string ToString()
+        public string ToString()
         {
             return Name;
         }
 
         public int compare_to(TokenType other)
         {
-            return string.Equals(Name, other.Name);
+            return strcmp (Name, other.Name);
         }
 
-        public override bool Equals.Obj(Object obj)
+        public int Equals(Object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((TokenType) obj);
+            //if (ReferenceEquals(null, obj)) return false;
+            //if (ReferenceEquals(this, obj)) return true;
+            //if (obj.GetType() != GetType()) return false;
+            return compare_to ((TokenType) obj);
         }
 
-        public override int GetHashCode()
+        public int GetHashCode()
         {
-            return Name.GetHashCode();
+            return Name.hash ();
         }
     }
 }

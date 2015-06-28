@@ -38,7 +38,7 @@ namespace Berp
             resolvedRule = ruleSet.Resolve(ruleName);
             if (resolvedRule == null)
             {
-                throw new Exception("Unable to resolve rule: " + ruleName);
+                throw new Error("Unable to resolve rule: " + ruleName);
             }
         }
 

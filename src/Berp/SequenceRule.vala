@@ -14,11 +14,11 @@ namespace Berp
             var result = new StringBuilder();
             foreach (var ruleElement in originalRuleElements ?? RuleElements)
             {
-                if (result.Length > 0)
-                    result.Append(" ");
-                result.Append(ruleElement.ToString(embedNonProductionRules));
+                if (result.len > 0)
+                    result.append(" ");
+                result.append(ruleElement.ToString(embedNonProductionRules));
             }
-            return result.ToString();
+            return result.str;
         }
 
         public override void Resolve(RuleSet ruleSet)
@@ -29,16 +29,16 @@ namespace Berp
             {
                 if (ruleElement.Multilicator == Multilicator.OneOrMore)
                 {
-                    resolvedRules.Add(new RuleElement(ruleElement.RuleName, Multilicator.One) { ResolvedRule = ruleElement.ResolvedRule });
-                    resolvedRules.Add(new RuleElement(ruleElement.RuleName, Multilicator.Any) { ResolvedRule = ruleElement.ResolvedRule });
+                    resolvedRules.append(new RuleElement(ruleElement.RuleName, Multilicator.One) { ResolvedRule = ruleElement.ResolvedRule });
+                    resolvedRules.append(new RuleElement(ruleElement.RuleName, Multilicator.Any) { ResolvedRule = ruleElement.ResolvedRule });
                 }
                 else
                 {
-                    resolvedRules.Add(ruleElement);
+                    resolvedRules.append(ruleElement);
                 }
             }
             originalRuleElements = RuleElements;
-            RuleElements = resolvedRules.ToArray();
+			resolvedRules.foreach ((d) => { RuleElements += d; });
         }
     }
 }
