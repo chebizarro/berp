@@ -12,10 +12,9 @@ namespace Berp
 			return help;
 		}
 
-		/*
 		public HelpText GetHeader()
 		{
-
+			/*
 			var help = new HelpText
 			{
 				Heading = HeadingInfo.Default,
@@ -27,8 +26,8 @@ namespace Berp
 			help.AddPreOptionsLine("Licensed under the Apache License, Version 2.0 (the \"License\")");
 			help.AddPreOptionsLine("	http://www.apache.org/licenses/LICENSE-2.0");
 			return help;
+			*/
 		 }
-		*/
 	}
 
 	class Main : Object {
@@ -73,10 +72,9 @@ namespace Berp
 			stdout.puts ("Loading grammar...\n");
 			
 			var grammar_file = new File.new_for_path (grammar);
-			var grammarDefinition = grammar_file.read ();
-			
+			var grammarDefinition = grammar_file.get_contents ();
 			var parser = new BerpGrammar.Parser();
-			var ruleSet = parser.Parse(new TokenScanner(grammarDefinition));
+			var ruleSet = parser.Parse(new TokenScanner(new StringReader(grammarDefinition)));
 
 			int tokenCount = ruleSet.Count(r => r is TokenRule);
 			

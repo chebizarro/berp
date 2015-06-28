@@ -16,7 +16,7 @@ namespace Berp
             this.targetClassName = targetClassName;
         }
 
-        public void Generate(string templatePath, RuleSet ruleSet, HashTable<int, State> states, string outputPath)
+        public void Generate(string templatePath, RuleSet ruleSet, Dictionary<int, State> states, string outputPath)
         {
             string template = File.ReadAllText(templatePath);
 

@@ -3,7 +3,7 @@ namespace Berp
 {
     public class GeneratorModel
     {
-        public HashTable<int, State> States { get; private set; }
+        public Dictionary<int, State> States { get; private set; }
         public string Namespace { get; set; }
         public string ParserClassName { get; set; }
         public string TargetNamespace { get; set; }
@@ -15,7 +15,7 @@ namespace Berp
             get { return States.Values.FirstOrDefault(s => s.IsEndState); }
         }
 
-        public GeneratorModel(HashTable<int, State> states)
+        public GeneratorModel(Dictionary<int, State> states)
         {
             States = states;
         }

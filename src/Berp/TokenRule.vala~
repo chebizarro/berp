@@ -3,7 +3,7 @@ namespace Berp
 {
     class TokenRule : Rule
     {
-		private TokenType tokenType;
+        private readonly TokenType tokenType;
 
         public TokenType TokenType
         {

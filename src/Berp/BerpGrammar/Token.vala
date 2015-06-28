@@ -1,4 +1,4 @@
-﻿
+
 namespace Berp.BerpGrammar
 {
     public class Token

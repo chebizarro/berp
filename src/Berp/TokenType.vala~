@@ -28,7 +28,7 @@ namespace Berp
             return string.Equals(Name, other.Name);
         }
 
-        public override bool Equals.Obj(Object obj)
+        public override bool Equals.Obj(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

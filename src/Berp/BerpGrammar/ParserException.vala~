@@ -10,9 +10,9 @@ namespace Berp.BerpGrammar
         {
         }
 
-        protected ParserException(string message, Location location) {
-			base(GetMessage(message, location));
-			
+        protected ParserException(string message, Location location)
+            : base(GetMessage(message, location))
+        {
             if (location == null) throw new ArgumentNullException("location");
 
             Location = location;

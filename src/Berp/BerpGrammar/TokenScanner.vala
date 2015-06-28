@@ -1,10 +1,10 @@
-﻿
+
 namespace Berp.BerpGrammar
 {
     public class TokenScanner : ITokenScanner
     {
-        private readonly TextReader textReader;
-        private readonly IEnumerator<Token> tokenEnumerator;
+        private TextReader textReader;
+        private IEnumerator<Token> tokenEnumerator;
 
         public TokenScanner(TextReader textReader)
         {

@@ -2640,5 +2640,5 @@ namespace Berp.BerpGrammar
         bool Match_Other(Token token);
     }
 }
-//#pragma warning restore
-//#endregion
+#pragma warning restore
+#endregion

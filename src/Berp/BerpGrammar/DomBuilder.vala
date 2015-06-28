@@ -1,10 +1,10 @@
-﻿
+
 namespace Berp.BerpGrammar
 {
     internal class DomBuilder
     {
         private bool firstRule = true;
-        readonly List<Rule> tempRules = new List<Rule>(); 
+        List<Rule> tempRules = new List<Rule>(); 
         private int counter = 0;
         public object BuildFromNode(AstBuilder.AstNode astNode)
         {

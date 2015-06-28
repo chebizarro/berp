@@ -12,7 +12,7 @@ namespace Berp
         public LookAheadHint(TokenType expectedToken, TokenType[] skip)
         {
             this.Skip = skip;
-            ExpectedTokens = {expectedToken};
+            ExpectedTokens = new[] {expectedToken};
         }
 
         public LookAheadHint.FromTokens(TokenType[] expectedTokens, TokenType[] skip)

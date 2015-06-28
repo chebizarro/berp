@@ -33,6 +33,10 @@ namespace Berp
 
         public abstract string GetRuleDescription(bool embedNonProductionRules);
 
+        public override string ToString()
+        {
+            return ToString(false);
+        }
 
         public virtual string ToString(bool embedNonProductionRules = false)
         {

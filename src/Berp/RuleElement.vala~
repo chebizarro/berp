@@ -42,8 +42,12 @@ namespace Berp
             }
         }
 
+        public override string ToString()
+        {
+            return ToString(false);
+        }
 
-        public string ToString(bool embedNonProductionRules = false)
+        public string ToString(bool embedNonProductionRules)
         {
             string postFix = "";
             switch (multilicator)

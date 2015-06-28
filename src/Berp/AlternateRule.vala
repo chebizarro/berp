@@ -3,11 +3,23 @@ namespace Berp {
 	public class AlternateRule : DerivedRule {
 
 		public AlternateRule (string name, string[] alternateRules) {
-			base(name, alternateRules.foreach((rn) => { new RuleElement(rn)).ToArray() });
+			RuleElement[] rules = {};
+			
+			foreach (string rule in alternateRules) {
+				rules += new RuleElement (rule);
+			}
+			
+			base(name, rules);
 		}
 
-		public AlternateRule.WithTokens(string name, TokenType[] alternateRules) {
-			base(name, alternateRules.Select(rn => new RuleElement(rn)).ToArray());
+		public AlternateRule.FromToken(string name, TokenType[] alternateRules) {
+			RuleElement[] rules = {};
+			
+			foreach (TokenType rule in alternateRules) {
+				rules += new RuleElement.FromToken (rule);
+			}
+			
+			base(name, rules);
 		}
 		
 		public override string GetRuleDescription(bool embedNonProductionRules) {

@@ -1,4 +1,4 @@
-﻿namespace Berp.BerpGrammar
+namespace Berp.BerpGrammar
 {
     public class Location
     {

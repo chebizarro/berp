@@ -37,7 +37,7 @@ namespace Berp
 
         public T GetSetting<T>(string name, T defaultValue = default(T))
         {
-            Object paramValue;
+            object paramValue;
             if (settings.TryGetValue(name, out paramValue))
             {
                 return (T)paramValue;
@@ -55,9 +55,9 @@ namespace Berp
             Add(new TokenRule(TokenType.Other));
         }
 
-        public RuleSet.WithSettings(HashTable<string, Object> settings)
+        public RuleSet.WithSettings(Dictionary<string, object> settings)
         {
-            this.settings = settings ?? new HashTable<string, Object>();
+            this.settings = settings ?? new Dictionary<string, object>();
 
             AddTokens();
             AddIgnoredContent();
@@ -65,14 +65,14 @@ namespace Berp
 
         private void AddIgnoredContent()
         {
-            SetIgnoredContent(GetSetting("IgnoredTokens", new Object[0])
+            SetIgnoredContent(GetSetting("IgnoredTokens", new object[0])
                 .Select(token => new TokenType(token.ToString().Substring(1))).ToArray());
         }
 
         private void AddTokens()
         {
             Add(new TokenRule(TokenType.EOF));
-            foreach (var token in GetSetting("Tokens", new Object[0]))
+            foreach (var token in GetSetting("Tokens", new object[0]))
             {
                 Add(new TokenRule(new TokenType(token.ToString().Substring(1))));
             }

@@ -2,7 +2,6 @@
 namespace Berp
 {
     public class StartRule : SequenceRule {
-
 		public StartRule(string name, params RuleElement[] ruleElements) {
 			base(name, ruleElements);
 		}

@@ -1,4 +1,4 @@
-﻿
+
 namespace Berp.BerpGrammar
 {
     public class AstBuilder : IAstBuilder
@@ -45,8 +45,8 @@ namespace Berp.BerpGrammar
         }
 
 
-        private readonly DomBuilder domBuilder = new DomBuilder();
-        private readonly Stack<AstNode> stack = new Stack<AstNode>();
+        private DomBuilder domBuilder = new DomBuilder();
+        private Stack<AstNode> stack = new Stack<AstNode>();
         public AstNode CurrentNode { get { return stack.Peek(); } }
 
         public AstBuilder()

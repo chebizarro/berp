@@ -86,6 +86,10 @@ DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	ParserGeneratorException.c ProductionRule.c Program.c Rule.c \
 	RuleElement.c RuleSet.c SequenceRule.c StartRule.c State.c \
 	StateCalculator.c TokenRule.c TokenType.c \
+	BerpGrammar/AstBuilder.c BerpGrammar/DomBuilder.c \
+	BerpGrammar/GrammarParser.c BerpGrammar/Location.c \
+	BerpGrammar/ParserException.c BerpGrammar/Token.c \
+	BerpGrammar/TokenMatcher.c BerpGrammar/TokenScanner.c \
 	$(top_srcdir)/depcomp $(srcdir)/berp_vala.stamp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -107,7 +111,10 @@ am_berp_OBJECTS = AlternateRule.$(OBJEXT) Branch.$(OBJEXT) \
 	Program.$(OBJEXT) Rule.$(OBJEXT) RuleElement.$(OBJEXT) \
 	RuleSet.$(OBJEXT) SequenceRule.$(OBJEXT) StartRule.$(OBJEXT) \
 	State.$(OBJEXT) StateCalculator.$(OBJEXT) TokenRule.$(OBJEXT) \
-	TokenType.$(OBJEXT)
+	TokenType.$(OBJEXT) AstBuilder.$(OBJEXT) DomBuilder.$(OBJEXT) \
+	GrammarParser.$(OBJEXT) Location.$(OBJEXT) \
+	ParserException.$(OBJEXT) Token.$(OBJEXT) \
+	TokenMatcher.$(OBJEXT) TokenScanner.$(OBJEXT)
 berp_OBJECTS = $(am_berp_OBJECTS)
 berp_DEPENDENCIES =
 AM_V_lt = $(am__v_lt_$(V))
@@ -323,7 +330,15 @@ berp_SOURCES = AlternateRule.vala \
 	State.vala \
 	StateCalculator.vala \
 	TokenRule.vala \
-	TokenType.vala
+	TokenType.vala \
+	BerpGrammar/AstBuilder.vala \
+	BerpGrammar/DomBuilder.vala \
+	BerpGrammar/GrammarParser.vala \
+	BerpGrammar/Location.vala \
+	BerpGrammar/ParserException.vala \
+	BerpGrammar/Token.vala \
+	BerpGrammar/TokenMatcher.vala \
+	BerpGrammar/TokenScanner.vala
 
 berp_LDADD = 
 berp_VALAFLAGS = 
@@ -423,13 +438,18 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/AlternateRule.Po
+include ./$(DEPDIR)/AstBuilder.Po
 include ./$(DEPDIR)/Branch.Po
 include ./$(DEPDIR)/CallStackItem.Po
 include ./$(DEPDIR)/DerivedRule.Po
+include ./$(DEPDIR)/DomBuilder.Po
 include ./$(DEPDIR)/Generator.Po
 include ./$(DEPDIR)/GeneratorModel.Po
+include ./$(DEPDIR)/GrammarParser.Po
+include ./$(DEPDIR)/Location.Po
 include ./$(DEPDIR)/LookAheadHint.Po
 include ./$(DEPDIR)/Multilicator.Po
+include ./$(DEPDIR)/ParserException.Po
 include ./$(DEPDIR)/ParserGeneratorException.Po
 include ./$(DEPDIR)/ProductionRule.Po
 include ./$(DEPDIR)/Program.Po
@@ -440,7 +460,10 @@ include ./$(DEPDIR)/SequenceRule.Po
 include ./$(DEPDIR)/StartRule.Po
 include ./$(DEPDIR)/State.Po
 include ./$(DEPDIR)/StateCalculator.Po
+include ./$(DEPDIR)/Token.Po
+include ./$(DEPDIR)/TokenMatcher.Po
 include ./$(DEPDIR)/TokenRule.Po
+include ./$(DEPDIR)/TokenScanner.Po
 include ./$(DEPDIR)/TokenType.Po
 
 .c.o:
@@ -463,6 +486,118 @@ include ./$(DEPDIR)/TokenType.Po
 #	$(AM_V_CC)source='$<' object='$@' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LTCOMPILE) -c -o $@ $<
+
+AstBuilder.o: BerpGrammar/AstBuilder.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT AstBuilder.o -MD -MP -MF $(DEPDIR)/AstBuilder.Tpo -c -o AstBuilder.o `test -f 'BerpGrammar/AstBuilder.c' || echo '$(srcdir)/'`BerpGrammar/AstBuilder.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/AstBuilder.Tpo $(DEPDIR)/AstBuilder.Po
+#	$(AM_V_CC)source='BerpGrammar/AstBuilder.c' object='AstBuilder.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o AstBuilder.o `test -f 'BerpGrammar/AstBuilder.c' || echo '$(srcdir)/'`BerpGrammar/AstBuilder.c
+
+AstBuilder.obj: BerpGrammar/AstBuilder.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT AstBuilder.obj -MD -MP -MF $(DEPDIR)/AstBuilder.Tpo -c -o AstBuilder.obj `if test -f 'BerpGrammar/AstBuilder.c'; then $(CYGPATH_W) 'BerpGrammar/AstBuilder.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/AstBuilder.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/AstBuilder.Tpo $(DEPDIR)/AstBuilder.Po
+#	$(AM_V_CC)source='BerpGrammar/AstBuilder.c' object='AstBuilder.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o AstBuilder.obj `if test -f 'BerpGrammar/AstBuilder.c'; then $(CYGPATH_W) 'BerpGrammar/AstBuilder.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/AstBuilder.c'; fi`
+
+DomBuilder.o: BerpGrammar/DomBuilder.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT DomBuilder.o -MD -MP -MF $(DEPDIR)/DomBuilder.Tpo -c -o DomBuilder.o `test -f 'BerpGrammar/DomBuilder.c' || echo '$(srcdir)/'`BerpGrammar/DomBuilder.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/DomBuilder.Tpo $(DEPDIR)/DomBuilder.Po
+#	$(AM_V_CC)source='BerpGrammar/DomBuilder.c' object='DomBuilder.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o DomBuilder.o `test -f 'BerpGrammar/DomBuilder.c' || echo '$(srcdir)/'`BerpGrammar/DomBuilder.c
+
+DomBuilder.obj: BerpGrammar/DomBuilder.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT DomBuilder.obj -MD -MP -MF $(DEPDIR)/DomBuilder.Tpo -c -o DomBuilder.obj `if test -f 'BerpGrammar/DomBuilder.c'; then $(CYGPATH_W) 'BerpGrammar/DomBuilder.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/DomBuilder.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/DomBuilder.Tpo $(DEPDIR)/DomBuilder.Po
+#	$(AM_V_CC)source='BerpGrammar/DomBuilder.c' object='DomBuilder.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o DomBuilder.obj `if test -f 'BerpGrammar/DomBuilder.c'; then $(CYGPATH_W) 'BerpGrammar/DomBuilder.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/DomBuilder.c'; fi`
+
+GrammarParser.o: BerpGrammar/GrammarParser.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT GrammarParser.o -MD -MP -MF $(DEPDIR)/GrammarParser.Tpo -c -o GrammarParser.o `test -f 'BerpGrammar/GrammarParser.c' || echo '$(srcdir)/'`BerpGrammar/GrammarParser.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/GrammarParser.Tpo $(DEPDIR)/GrammarParser.Po
+#	$(AM_V_CC)source='BerpGrammar/GrammarParser.c' object='GrammarParser.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o GrammarParser.o `test -f 'BerpGrammar/GrammarParser.c' || echo '$(srcdir)/'`BerpGrammar/GrammarParser.c
+
+GrammarParser.obj: BerpGrammar/GrammarParser.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT GrammarParser.obj -MD -MP -MF $(DEPDIR)/GrammarParser.Tpo -c -o GrammarParser.obj `if test -f 'BerpGrammar/GrammarParser.c'; then $(CYGPATH_W) 'BerpGrammar/GrammarParser.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/GrammarParser.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/GrammarParser.Tpo $(DEPDIR)/GrammarParser.Po
+#	$(AM_V_CC)source='BerpGrammar/GrammarParser.c' object='GrammarParser.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o GrammarParser.obj `if test -f 'BerpGrammar/GrammarParser.c'; then $(CYGPATH_W) 'BerpGrammar/GrammarParser.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/GrammarParser.c'; fi`
+
+Location.o: BerpGrammar/Location.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT Location.o -MD -MP -MF $(DEPDIR)/Location.Tpo -c -o Location.o `test -f 'BerpGrammar/Location.c' || echo '$(srcdir)/'`BerpGrammar/Location.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/Location.Tpo $(DEPDIR)/Location.Po
+#	$(AM_V_CC)source='BerpGrammar/Location.c' object='Location.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o Location.o `test -f 'BerpGrammar/Location.c' || echo '$(srcdir)/'`BerpGrammar/Location.c
+
+Location.obj: BerpGrammar/Location.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT Location.obj -MD -MP -MF $(DEPDIR)/Location.Tpo -c -o Location.obj `if test -f 'BerpGrammar/Location.c'; then $(CYGPATH_W) 'BerpGrammar/Location.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/Location.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/Location.Tpo $(DEPDIR)/Location.Po
+#	$(AM_V_CC)source='BerpGrammar/Location.c' object='Location.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o Location.obj `if test -f 'BerpGrammar/Location.c'; then $(CYGPATH_W) 'BerpGrammar/Location.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/Location.c'; fi`
+
+ParserException.o: BerpGrammar/ParserException.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ParserException.o -MD -MP -MF $(DEPDIR)/ParserException.Tpo -c -o ParserException.o `test -f 'BerpGrammar/ParserException.c' || echo '$(srcdir)/'`BerpGrammar/ParserException.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/ParserException.Tpo $(DEPDIR)/ParserException.Po
+#	$(AM_V_CC)source='BerpGrammar/ParserException.c' object='ParserException.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ParserException.o `test -f 'BerpGrammar/ParserException.c' || echo '$(srcdir)/'`BerpGrammar/ParserException.c
+
+ParserException.obj: BerpGrammar/ParserException.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ParserException.obj -MD -MP -MF $(DEPDIR)/ParserException.Tpo -c -o ParserException.obj `if test -f 'BerpGrammar/ParserException.c'; then $(CYGPATH_W) 'BerpGrammar/ParserException.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/ParserException.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/ParserException.Tpo $(DEPDIR)/ParserException.Po
+#	$(AM_V_CC)source='BerpGrammar/ParserException.c' object='ParserException.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ParserException.obj `if test -f 'BerpGrammar/ParserException.c'; then $(CYGPATH_W) 'BerpGrammar/ParserException.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/ParserException.c'; fi`
+
+Token.o: BerpGrammar/Token.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT Token.o -MD -MP -MF $(DEPDIR)/Token.Tpo -c -o Token.o `test -f 'BerpGrammar/Token.c' || echo '$(srcdir)/'`BerpGrammar/Token.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/Token.Tpo $(DEPDIR)/Token.Po
+#	$(AM_V_CC)source='BerpGrammar/Token.c' object='Token.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o Token.o `test -f 'BerpGrammar/Token.c' || echo '$(srcdir)/'`BerpGrammar/Token.c
+
+Token.obj: BerpGrammar/Token.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT Token.obj -MD -MP -MF $(DEPDIR)/Token.Tpo -c -o Token.obj `if test -f 'BerpGrammar/Token.c'; then $(CYGPATH_W) 'BerpGrammar/Token.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/Token.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/Token.Tpo $(DEPDIR)/Token.Po
+#	$(AM_V_CC)source='BerpGrammar/Token.c' object='Token.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o Token.obj `if test -f 'BerpGrammar/Token.c'; then $(CYGPATH_W) 'BerpGrammar/Token.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/Token.c'; fi`
+
+TokenMatcher.o: BerpGrammar/TokenMatcher.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TokenMatcher.o -MD -MP -MF $(DEPDIR)/TokenMatcher.Tpo -c -o TokenMatcher.o `test -f 'BerpGrammar/TokenMatcher.c' || echo '$(srcdir)/'`BerpGrammar/TokenMatcher.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/TokenMatcher.Tpo $(DEPDIR)/TokenMatcher.Po
+#	$(AM_V_CC)source='BerpGrammar/TokenMatcher.c' object='TokenMatcher.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TokenMatcher.o `test -f 'BerpGrammar/TokenMatcher.c' || echo '$(srcdir)/'`BerpGrammar/TokenMatcher.c
+
+TokenMatcher.obj: BerpGrammar/TokenMatcher.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TokenMatcher.obj -MD -MP -MF $(DEPDIR)/TokenMatcher.Tpo -c -o TokenMatcher.obj `if test -f 'BerpGrammar/TokenMatcher.c'; then $(CYGPATH_W) 'BerpGrammar/TokenMatcher.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/TokenMatcher.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/TokenMatcher.Tpo $(DEPDIR)/TokenMatcher.Po
+#	$(AM_V_CC)source='BerpGrammar/TokenMatcher.c' object='TokenMatcher.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TokenMatcher.obj `if test -f 'BerpGrammar/TokenMatcher.c'; then $(CYGPATH_W) 'BerpGrammar/TokenMatcher.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/TokenMatcher.c'; fi`
+
+TokenScanner.o: BerpGrammar/TokenScanner.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TokenScanner.o -MD -MP -MF $(DEPDIR)/TokenScanner.Tpo -c -o TokenScanner.o `test -f 'BerpGrammar/TokenScanner.c' || echo '$(srcdir)/'`BerpGrammar/TokenScanner.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/TokenScanner.Tpo $(DEPDIR)/TokenScanner.Po
+#	$(AM_V_CC)source='BerpGrammar/TokenScanner.c' object='TokenScanner.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TokenScanner.o `test -f 'BerpGrammar/TokenScanner.c' || echo '$(srcdir)/'`BerpGrammar/TokenScanner.c
+
+TokenScanner.obj: BerpGrammar/TokenScanner.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TokenScanner.obj -MD -MP -MF $(DEPDIR)/TokenScanner.Tpo -c -o TokenScanner.obj `if test -f 'BerpGrammar/TokenScanner.c'; then $(CYGPATH_W) 'BerpGrammar/TokenScanner.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/TokenScanner.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/TokenScanner.Tpo $(DEPDIR)/TokenScanner.Po
+#	$(AM_V_CC)source='BerpGrammar/TokenScanner.c' object='TokenScanner.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TokenScanner.obj `if test -f 'BerpGrammar/TokenScanner.c'; then $(CYGPATH_W) 'BerpGrammar/TokenScanner.c'; else $(CYGPATH_W) '$(srcdir)/BerpGrammar/TokenScanner.c'; fi`
 $(srcdir)/AlternateRule.c: $(srcdir)/berp_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -563,9 +698,49 @@ $(srcdir)/TokenType.c: $(srcdir)/berp_vala.stamp
 	@if test -f $@; then :; else \
 	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
 	fi
-$(srcdir)/berp_vala.stamp: AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala
+$(srcdir)/BerpGrammar/AstBuilder.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/BerpGrammar/DomBuilder.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/BerpGrammar/GrammarParser.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/BerpGrammar/Location.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/BerpGrammar/ParserException.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/BerpGrammar/Token.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/BerpGrammar/TokenMatcher.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/BerpGrammar/TokenScanner.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
+$(srcdir)/berp_vala.stamp: AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala BerpGrammar/AstBuilder.vala BerpGrammar/DomBuilder.vala BerpGrammar/GrammarParser.vala BerpGrammar/Location.vala BerpGrammar/ParserException.vala BerpGrammar/Token.vala BerpGrammar/TokenMatcher.vala BerpGrammar/TokenScanner.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(berp_VALAFLAGS) $(VALAFLAGS) -C AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(berp_VALAFLAGS) $(VALAFLAGS) -C AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala BerpGrammar/AstBuilder.vala BerpGrammar/DomBuilder.vala BerpGrammar/GrammarParser.vala BerpGrammar/Location.vala BerpGrammar/ParserException.vala BerpGrammar/Token.vala BerpGrammar/TokenMatcher.vala BerpGrammar/TokenScanner.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:
@@ -695,6 +870,14 @@ maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 	-rm -f $(srcdir)/AlternateRule.c
+	-rm -f $(srcdir)/BerpGrammar/AstBuilder.c
+	-rm -f $(srcdir)/BerpGrammar/DomBuilder.c
+	-rm -f $(srcdir)/BerpGrammar/GrammarParser.c
+	-rm -f $(srcdir)/BerpGrammar/Location.c
+	-rm -f $(srcdir)/BerpGrammar/ParserException.c
+	-rm -f $(srcdir)/BerpGrammar/Token.c
+	-rm -f $(srcdir)/BerpGrammar/TokenMatcher.c
+	-rm -f $(srcdir)/BerpGrammar/TokenScanner.c
 	-rm -f $(srcdir)/Branch.c
 	-rm -f $(srcdir)/CallStackItem.c
 	-rm -f $(srcdir)/DerivedRule.c
@@ -716,6 +899,14 @@ maintainer-clean-generic:
 	-rm -f $(srcdir)/TokenType.c
 	-rm -f $(srcdir)/berp_vala.stamp
 	-rm -f AlternateRule.c
+	-rm -f BerpGrammar/AstBuilder.c
+	-rm -f BerpGrammar/DomBuilder.c
+	-rm -f BerpGrammar/GrammarParser.c
+	-rm -f BerpGrammar/Location.c
+	-rm -f BerpGrammar/ParserException.c
+	-rm -f BerpGrammar/Token.c
+	-rm -f BerpGrammar/TokenMatcher.c
+	-rm -f BerpGrammar/TokenScanner.c
 	-rm -f Branch.c
 	-rm -f CallStackItem.c
 	-rm -f DerivedRule.c

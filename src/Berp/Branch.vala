@@ -46,14 +46,13 @@ namespace Berp
             return string.Format("[{0}]", string.Join(",", OptimizedProductions ?? Productions));
         }
 
-        protected bool Equals(Branch other)
-        {
+        protected bool Equals(Branch other) {
             return TokenType.Equals(other.TokenType)
                 && CallStackItem.Equals(other.CallStackItem)
                 && OptimizedProductions.SequenceEqual(other.OptimizedProductions);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals.Obj(Object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
@@ -61,12 +60,8 @@ namespace Berp
             return Equals((Branch) obj);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (TokenType.GetHashCode()*397);
-            }
-        }
-    }
+        public override int GetHashCode() {
+			return (TokenType.GetHashCode()*397);
+		}
+	}
 }

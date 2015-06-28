@@ -21,7 +21,15 @@ berp_SOURCES = 	AlternateRule.vala \
 	State.vala \
 	StateCalculator.vala \
 	TokenRule.vala \
-	TokenType.vala
+	TokenType.vala \
+	BerpGrammar/AstBuilder.vala \
+	BerpGrammar/DomBuilder.vala \
+	BerpGrammar/GrammarParser.vala \
+	BerpGrammar/Location.vala \
+	BerpGrammar/ParserException.vala \
+	BerpGrammar/Token.vala \
+	BerpGrammar/TokenMatcher.vala \
+	BerpGrammar/TokenScanner.vala
 
 berp_LDADD = 
 berp_VALAFLAGS = 
