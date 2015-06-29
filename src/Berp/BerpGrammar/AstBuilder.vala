@@ -4,8 +4,8 @@ namespace Berp.BerpGrammar
 {
 	
 	public struct KeyValuePair<K,V> {
-		private K Key { get; private set;}
-		private V @Value { get; set;}
+		public K Key { get; private set;}
+		public V @Value { get; set;}
 	}
 
 	
@@ -19,12 +19,24 @@ namespace Berp.BerpGrammar
 			
             public Gee.Iterable<Object> GetSubNodesOf(RuleType ruleType)
             {
-                return SubNodes.foreach((sn) => {sn.Key == ruleType;}).SelectMany(sn => sn.Value);
+				ArrayList<ArrayList<Object>> SubNodeValues = new ArrayList<ArrayList<Object>> ();
+
+				foreach (var node in SubNodes) {
+					if (node.Key == ruleType) {
+						SubNodeValues.add (node.Value);
+					}
+				}
+				return SubNodeValues;
             }
 
             public Gee.Iterable<Object> GetAllSubNodes()
             {
-                return SubNodes.SelectMany(sn => sn.Value);
+				ArrayList<ArrayList<Object>> SubNodeValues = new ArrayList<ArrayList<Object>> ();
+
+				foreach (var node in SubNodes) {
+					SubNodeValues.add (node.Value);
+				}
+				return SubNodeValues;
             }
 
 			
@@ -36,13 +48,13 @@ namespace Berp.BerpGrammar
 					
                     if (lastSubNode.Key == nodeName)
                     {
-                        lastSubNode.Value = subNode;
+                        lastSubNode.Value.add (subNode);
                         return;
                     }
                 }
 				ArrayList<Object> subNodes = new ArrayList<Object> ();
 				subNodes.add (subNode);
-                SubNodes.add (KeyValuePair<RuleType, List<Object>> (nodeName, subNodes));
+                SubNodes.add (KeyValuePair<RuleType, ArrayList<Object>> () {Key = nodeName, Value = subNodes});
             }
 
             public AstNode()
@@ -52,7 +64,18 @@ namespace Berp.BerpGrammar
 
             public override string ToString()
             {
-                return string.Format("<{0}>{1}</{0}>", Node, string.Join(", ", SubNodes.Select(sn =>
+				string result = ", "; // = "<%s>%s</%s>".printf(Node, , Node);
+
+				foreach (var SubNode in SubNodes) {
+					result += ", "; 
+					foreach (var SubSubNode in SubNode.Value) {
+					
+					}
+					
+				}
+				
+                return string.Format(, Node, string.Join(
+				", ", SubNodes.Select(sn =>
                     string.Format("[{0}:{1}]", sn.Key, string.Join(", ", sn.Value.Select(v => v.ToString()))))));
             }
         }
