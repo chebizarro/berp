@@ -1,0 +1,28 @@
+[Anjuta]
+Maximized=1
+Geometry=1280x1000+0+24
+
+[Execution]
+Run in terminal=2
+Working directories=../../.
+
+[File Loader]
+Files=../../src/Berp/Program.vala#1%%%../../src/Berp/BerpGrammar/AstBuilder.vala#72%%%../../src/Berp/BerpGrammar/DomBuilder.vala#106%%%../../src/Berp/RuleElement.vala#77%%%../../src/Berp/BerpGrammar/GrammarParser.vala#1042%%%../../src/Berp/BerpGrammar/ParserException.vala#5%%%../../src/Berp/BerpGrammar/TokenScanner.vala#105%%%../../src/Berp/RuleSet.vala#90%%%../../src/Berp/State.vala#34%%%../../src/Berp/TokenType.vala#39%%%../../src/Berp/Branch.vala#39%%%../../src/Berp/ProductionRule.vala#34%%%../../src/Berp/Rule.vala#43%%%../../src/Berp/SequenceRule.vala#41%%%../../src/Berp/CallStackItem.vala#64%%%../../src/Berp/ParserGeneratorException.vala#5%%%../../src/Berp/StateCalculator.vala#46%%%../../src/Berp/AlternateRule.vala#29%%%../../src/Berp/StartRule.vala#1
+
+[Document Manager]
+bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
+
+[Project Manager]
+Shortcut=berp//src//Berp//berp
+Expand=berp%%%berp//src
+
+[Build]
+Configuration list=1:Default:%%%1:Debug:Debug%%%1:Profiling:Profiling%%%1:Optimized:Optimized
+Selected Configuration=Default
+BuildArgs/Default=--enable-maintainer-mode
+BuildArgs/Debug=--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'
+BuildArgs/Profiling=--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'
+BuildArgs/Optimized=--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'
+
+[Debugger]
+Stop at beginning=2

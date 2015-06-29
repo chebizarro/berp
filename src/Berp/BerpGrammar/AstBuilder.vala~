@@ -67,7 +67,11 @@ namespace Berp.BerpGrammar
 				string result = ", "; // = "<%s>%s</%s>".printf(Node, , Node);
 
 				foreach (var SubNode in SubNodes) {
-					result += 
+					result += ", "; 
+					foreach (var SubSubNode in SubNode.Value) {
+					
+					}
+					
 				}
 				
                 return string.Format(, Node, string.Join(
