@@ -23,6 +23,10 @@ namespace Berp
             return Name;
         }
 
+		public string to_string() {
+			return ToString();
+		}
+
         public int compare_to(TokenType other)
         {
             return strcmp (Name, other.Name);

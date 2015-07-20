@@ -8,6 +8,7 @@ berp_SOURCES = 	AlternateRule.vala \
 	DerivedRule.vala \
 	Generator.vala \
 	GeneratorModel.vala \
+	KeyValuePair.vala \
 	LookAheadHint.vala \
 	Multilicator.vala \
 	ParserGeneratorException.vala \

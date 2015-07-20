@@ -17,8 +17,13 @@ namespace Berp
 
         public override string Name
         {
-            get { return "#" + tokenType; }
+            owned get { return GetName(); }
         }
+
+		public string GetName ()
+		{
+			return @"#$tokenType";
+		}
 
         public override string GetRuleDescription(bool embedNonProductionRules)
         {

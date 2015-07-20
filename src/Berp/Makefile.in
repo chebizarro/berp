@@ -82,10 +82,10 @@ bin_PROGRAMS = berp$(EXEEXT)
 subdir = src/Berp
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	AlternateRule.c Branch.c CallStackItem.c DerivedRule.c \
-	Generator.c GeneratorModel.c LookAheadHint.c Multilicator.c \
-	ParserGeneratorException.c ProductionRule.c Program.c Rule.c \
-	RuleElement.c RuleSet.c SequenceRule.c StartRule.c State.c \
-	StateCalculator.c TokenRule.c TokenType.c \
+	Generator.c GeneratorModel.c KeyValuePair.c LookAheadHint.c \
+	Multilicator.c ParserGeneratorException.c ProductionRule.c \
+	Program.c Rule.c RuleElement.c RuleSet.c SequenceRule.c \
+	StartRule.c State.c StateCalculator.c TokenRule.c TokenType.c \
 	BerpGrammar/AstBuilder.c BerpGrammar/DomBuilder.c \
 	BerpGrammar/GrammarParser.c BerpGrammar/Location.c \
 	BerpGrammar/ParserException.c BerpGrammar/Token.c \
@@ -106,14 +106,14 @@ PROGRAMS = $(bin_PROGRAMS)
 am_berp_OBJECTS = AlternateRule.$(OBJEXT) Branch.$(OBJEXT) \
 	CallStackItem.$(OBJEXT) DerivedRule.$(OBJEXT) \
 	Generator.$(OBJEXT) GeneratorModel.$(OBJEXT) \
-	LookAheadHint.$(OBJEXT) Multilicator.$(OBJEXT) \
-	ParserGeneratorException.$(OBJEXT) ProductionRule.$(OBJEXT) \
-	Program.$(OBJEXT) Rule.$(OBJEXT) RuleElement.$(OBJEXT) \
-	RuleSet.$(OBJEXT) SequenceRule.$(OBJEXT) StartRule.$(OBJEXT) \
-	State.$(OBJEXT) StateCalculator.$(OBJEXT) TokenRule.$(OBJEXT) \
-	TokenType.$(OBJEXT) AstBuilder.$(OBJEXT) DomBuilder.$(OBJEXT) \
-	GrammarParser.$(OBJEXT) Location.$(OBJEXT) \
-	ParserException.$(OBJEXT) Token.$(OBJEXT) \
+	KeyValuePair.$(OBJEXT) LookAheadHint.$(OBJEXT) \
+	Multilicator.$(OBJEXT) ParserGeneratorException.$(OBJEXT) \
+	ProductionRule.$(OBJEXT) Program.$(OBJEXT) Rule.$(OBJEXT) \
+	RuleElement.$(OBJEXT) RuleSet.$(OBJEXT) SequenceRule.$(OBJEXT) \
+	StartRule.$(OBJEXT) State.$(OBJEXT) StateCalculator.$(OBJEXT) \
+	TokenRule.$(OBJEXT) TokenType.$(OBJEXT) AstBuilder.$(OBJEXT) \
+	DomBuilder.$(OBJEXT) GrammarParser.$(OBJEXT) \
+	Location.$(OBJEXT) ParserException.$(OBJEXT) Token.$(OBJEXT) \
 	TokenMatcher.$(OBJEXT) TokenScanner.$(OBJEXT)
 berp_OBJECTS = $(am_berp_OBJECTS)
 berp_DEPENDENCIES =
@@ -317,6 +317,7 @@ berp_SOURCES = AlternateRule.vala \
 	DerivedRule.vala \
 	Generator.vala \
 	GeneratorModel.vala \
+	KeyValuePair.vala \
 	LookAheadHint.vala \
 	Multilicator.vala \
 	ParserGeneratorException.vala \
@@ -446,6 +447,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Generator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GeneratorModel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GrammarParser.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/KeyValuePair.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Location.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LookAheadHint.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Multilicator.Po@am__quote@
@@ -628,6 +630,11 @@ $(srcdir)/GeneratorModel.c: $(srcdir)/berp_vala.stamp
 	@if test -f $@; then :; else \
 	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
 	fi
+$(srcdir)/KeyValuePair.c: $(srcdir)/berp_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
+	fi
 $(srcdir)/LookAheadHint.c: $(srcdir)/berp_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/berp_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -738,9 +745,9 @@ $(srcdir)/BerpGrammar/TokenScanner.c: $(srcdir)/berp_vala.stamp
 	@if test -f $@; then :; else \
 	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/berp_vala.stamp; \
 	fi
-$(srcdir)/berp_vala.stamp: AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala BerpGrammar/AstBuilder.vala BerpGrammar/DomBuilder.vala BerpGrammar/GrammarParser.vala BerpGrammar/Location.vala BerpGrammar/ParserException.vala BerpGrammar/Token.vala BerpGrammar/TokenMatcher.vala BerpGrammar/TokenScanner.vala
+$(srcdir)/berp_vala.stamp: AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala KeyValuePair.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala BerpGrammar/AstBuilder.vala BerpGrammar/DomBuilder.vala BerpGrammar/GrammarParser.vala BerpGrammar/Location.vala BerpGrammar/ParserException.vala BerpGrammar/Token.vala BerpGrammar/TokenMatcher.vala BerpGrammar/TokenScanner.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(berp_VALAFLAGS) $(VALAFLAGS) -C AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala BerpGrammar/AstBuilder.vala BerpGrammar/DomBuilder.vala BerpGrammar/GrammarParser.vala BerpGrammar/Location.vala BerpGrammar/ParserException.vala BerpGrammar/Token.vala BerpGrammar/TokenMatcher.vala BerpGrammar/TokenScanner.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(berp_VALAFLAGS) $(VALAFLAGS) -C AlternateRule.vala Branch.vala CallStackItem.vala DerivedRule.vala Generator.vala GeneratorModel.vala KeyValuePair.vala LookAheadHint.vala Multilicator.vala ParserGeneratorException.vala ProductionRule.vala Program.vala Rule.vala RuleElement.vala RuleSet.vala SequenceRule.vala StartRule.vala State.vala StateCalculator.vala TokenRule.vala TokenType.vala BerpGrammar/AstBuilder.vala BerpGrammar/DomBuilder.vala BerpGrammar/GrammarParser.vala BerpGrammar/Location.vala BerpGrammar/ParserException.vala BerpGrammar/Token.vala BerpGrammar/TokenMatcher.vala BerpGrammar/TokenScanner.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:
@@ -883,6 +890,7 @@ maintainer-clean-generic:
 	-rm -f $(srcdir)/DerivedRule.c
 	-rm -f $(srcdir)/Generator.c
 	-rm -f $(srcdir)/GeneratorModel.c
+	-rm -f $(srcdir)/KeyValuePair.c
 	-rm -f $(srcdir)/LookAheadHint.c
 	-rm -f $(srcdir)/Multilicator.c
 	-rm -f $(srcdir)/ParserGeneratorException.c
@@ -912,6 +920,7 @@ maintainer-clean-generic:
 	-rm -f DerivedRule.c
 	-rm -f Generator.c
 	-rm -f GeneratorModel.c
+	-rm -f KeyValuePair.c
 	-rm -f LookAheadHint.c
 	-rm -f Multilicator.c
 	-rm -f ParserGeneratorException.c

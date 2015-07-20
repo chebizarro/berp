@@ -5,7 +5,7 @@ namespace Berp
     {
         private bool tempRule = false;
         private bool allowProductionRules = true;
-        public abstract string Name { get; }
+        public abstract string Name { owned get; }
         public LookAheadHint LookAheadHint { get; set; }
 
         public bool AllowProductionRules
@@ -36,16 +36,32 @@ namespace Berp
 
         public virtual string ToString(bool embedNonProductionRules = false)
         {
+			string[] skip;
+			string[] tokens;
+			
+			foreach (var item in LookAheadHint.Skip) {
+				skip += "#" + item.Name;
+			}
+
+			foreach (var item in LookAheadHint.ExpectedTokens) {
+				tokens += "#" + item.Name;
+			}
+			
+		
             var result = new StringBuilder(Name);
             if (AllowProductionRules)
                 result.append("!");
             if (LookAheadHint != null)
-                result.append_printf(" [%s->%s]", "|" + LookAheadHint.Skip.foreach(t => "#" + t.Name), "|" + LookAheadHint.ExpectedTokens.Select(t => "#" + t.Name));
+                result.append_printf(" [%s->%s]", string.joinv("|", skip), string.joinv("|", tokens));
 
             result.append(" := ");
             result.append(GetRuleDescription(embedNonProductionRules));
             return result.str;
         }
+        
+        public string to_string() {
+			return ToString();
+		}
 
         public abstract void Resolve(RuleSet ruleSet);
     }

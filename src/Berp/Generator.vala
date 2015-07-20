@@ -30,13 +30,18 @@ namespace Berp
             };
 
             string result = Razor.Parse(template, model);
-            if (File.Exists(outputPath) && File.ReadAllText(outputPath).Equals(result))
-            {
-                Console.WriteLine("Parser class up-to-date.");
-                return;
-            }
-            File.WriteAllText(outputPath, result, Encoding.UTF8);
-            Console.WriteLine("Parser class generated to '{0}'.", outputPath);
+
+			if(FileUtils.test(outputPath, FileTest.EXISTS)) {
+				string content;
+				FileUtils.get_contents(outputPath, content);
+				if (content == result) {
+					stdout.puts("Parser class up-to-date.\n");
+					return;
+				}
+			}
+			
+            FileUtils.set_contents(outputPath, result);
+            stdout.printf("Parser class generated to '%s'.\n", outputPath);
         }
     }
 }

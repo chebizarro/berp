@@ -12238,7 +12238,8 @@ $as_echo "$as_me: WARNING: you will not be able to compile vala source files" >&
 pkg_modules="glib-2.0 >= 2.24.1
              gobject-2.0 >= 2.24.1
              gio-2.0
-             gee-0.8"
+             gee-0.8
+             libdotnet-0.1"
 
 
 

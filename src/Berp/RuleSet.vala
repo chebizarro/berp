@@ -4,7 +4,7 @@ namespace Berp
 {
     public class RuleSet : Gee.ArrayList<Rule>
     {
-        private HashTable<string, Object> settings;
+        private HashMap<string, Object> settings;
         private Gee.ArrayList<LookAheadHint> lookAheadHints = new Gee.ArrayList<LookAheadHint>();
         private TokenType[] ignoredTokens = new TokenType[0];
 
@@ -21,27 +21,27 @@ namespace Berp
             }
         }
 
-        public Gee.Iterable<Rule> DerivedRules
+        public RuleIterator<Rule> DerivedRules
         {
             get { return this.Where(r => r is DerivedRule); }
         } 
 
-        public Gee.Iterable<Rule> TokenRules
+        public RuleIterator<Rule> TokenRules
         {
             get { return this.Where(r => r is TokenRule); }
         }
 
-        public Gee.Iterable<LookAheadHint> LookAheadHints
+        public RuleIterator<LookAheadHint> LookAheadHints
         {
-            get { return lookAheadHints; }
+            get { return new RuleIterator<LookAheadHint>(lookAheadHints); }
         }
 
-        public T GetSetting<T>(string name, T defaultValue = default(T))
+        public T GetSetting<T>(string name, T? defaultValue = null)
         {
-            Object paramValue;
-            if (settings.TryGetValue(name, out paramValue))
+            //Object paramValue;
+            if (settings.has_key(name))
             {
-                return (T)paramValue;
+                return (T)settings.get(name);
             }
             return defaultValue;
         }
@@ -66,8 +66,12 @@ namespace Berp
 
         private void AddIgnoredContent()
         {
-            SetIgnoredContent(GetSetting("IgnoredTokens", new Object[0])
-                .Select(token => new TokenType(token.ToString().Substring(1))).ToArray());
+			TokenType[] tokens;
+			foreach (var token in GetSetting("IgnoredTokens", tokens)) {
+				tokens += new TokenType(token.ToString().substring(1));
+			}
+			
+            SetIgnoredContent(tokens);
         }
 
         private void AddTokens()
@@ -84,8 +88,26 @@ namespace Berp
         public string ToString(bool embedNonProductionRules = false)
         {
             var ruleSetBuilder = new StringBuilder();
-
-            foreach (var rule in this.Where(r => !r.TempRule || !embedNonProductionRules).Where(r => !(r is TokenRule) || !embedNonProductionRules))
+			
+			var firstSet = new ArrayList<Rule> ();
+			var secondSet = new ArrayList<Rule> ();
+			
+			this.foreach ((r) => {
+				if (!r.TempRule || !embedNonProductionRules) {
+					firstSet.add(r);
+				}
+			});
+			
+			firstSet.foreach ((r) => {
+				if (!r.TempRule || !embedNonProductionRules) {
+					firstSet.add(r);
+				}
+			});
+			
+			
+            foreach (var rule in this.Where(r => !r.TempRule || !embedNonProductionRules)
+				.Where(r => !(r is TokenRule) || !embedNonProductionRules)
+			)
             {
                 ruleSetBuilder.append(rule.ToString(embedNonProductionRules) + "\n");
             }
@@ -93,31 +115,66 @@ namespace Berp
             return ruleSetBuilder.str;
         }
 
-        public Rule ResolveRule(string ruleName)
+        public Rule? Resolve(string? ruleName = null)
         {
-            return this.SingleOrDefault(r => r.Name == ruleName);
+			if (ruleName != null) {
+				return this.SingleOrDefault(r => r.Name == ruleName);
+			} else {
+				foreach (var rule in this) {
+					rule.Resolve(this);
+					if (rule.LookAheadHint != null)
+						ResolveWithLookAhead(rule.LookAheadHint);
+				}
+				return null;
+			}
         }
 
         private void ResolveWithLookAhead(LookAheadHint lookAheadHint)
         {
-            lookAheadHint.Id = lookAheadHints.length();
+            lookAheadHint.Id = lookAheadHints.size;
             lookAheadHints.add(lookAheadHint);
         }
 
-        public void Resolve()
-        {
-            foreach (var rule in this)
-            {
-                rule.ResolveRule(this);
-
-                if (rule.LookAheadHint != null)
-                    ResolveWithLookAhead(rule.LookAheadHint);
-            }
-        }
-
-        public void SetIgnoredContent(params TokenType[] newIgnoredTokens)
+        public void SetIgnoredContent(TokenType[] newIgnoredTokens)
         {
             ignoredTokens = newIgnoredTokens;
         }
+
+		public delegate bool WhereFunc<T>(T rule);
+        
+        public RuleIterator<Rule> Where (WhereFunc func) {
+			return new RuleIterator<Rule>(this as ArrayList<Rule>, func); 
+		}
+		
+		public class RuleIterator<T> : Object {
+			
+			internal ArrayList<T> _ruleset;
+			internal WhereFunc? _wherefunc;
+			internal Iterator<T> _iterator;
+			
+			internal RuleIterator (ArrayList<T> ruleset, WhereFunc? wherefunc = null) {
+				_ruleset = ruleset;
+				_iterator = ruleset.iterator();
+				_wherefunc = wherefunc;
+			}
+			
+			public bool next () {
+				if (_wherefunc != null) {
+					while (_iterator.next()) {
+						T rule = _iterator.get();
+						if (_wherefunc(rule)) {
+							return true;
+						}
+					}
+					return false;
+				}
+				return _iterator.next();
+			}
+			
+			public new T get() {
+				return _iterator.get();
+			}
+			
+		}
     }
 }
